@@ -7,6 +7,7 @@ import android.view.View
 import androidx.annotation.ColorInt
 import androidx.core.text.toSpannable
 import com.gg.gapo.richtext.GapoOnClickSpanListener
+import com.gg.gapo.richtext.spanner.GapoRichTextClickableSpan
 import com.gg.gapo.richtext.spanner.GapoRichTextSpanner
 
 /**
@@ -79,7 +80,7 @@ class GapoRichTextMetadataSpanner private constructor(
             val listener = onClickSpanListener
             if (listener != null) {
                 spans.add(
-                    object : ClickableSpan() {
+                    object : GapoRichTextClickableSpan() {
                         override fun updateDrawState(textPaint: TextPaint) {
                             listener.updateDrawState(textPaint)
                         }
@@ -87,6 +88,11 @@ class GapoRichTextMetadataSpanner private constructor(
                         override fun onClick(widget: View) {
                             listener.onClickSpan(widget, value, start, end)
                         }
+
+                        override fun onLongClick(widget: View) {
+                            listener.onLongClickSpan(widget, value, start, end)
+                        }
+
                     }
                 )
             }

@@ -1,13 +1,13 @@
 package com.gg.gapo.richtext.example
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.gg.gapo.richtext.GapoOnClickSpanListener
 import com.gg.gapo.richtext.GapoRichText
+import com.gg.gapo.richtext.GapoRichTextLinkMovementMethod
 import com.gg.gapo.richtext.example.databinding.ActivityMainBinding
 import com.gg.gapo.richtext.parser.email.GapoRichTextEmailMetadataParser
 import com.gg.gapo.richtext.parser.hashtag.GapoRichTextHashtagMetadataParser
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.text.movementMethod = LinkMovementMethod.getInstance()
+        binding.text.movementMethod = GapoRichTextLinkMovementMethod.instance
 
         val text =
             "Email kienht@gapo.vn Hán 0911667993 Trung https://kien.dev Kiên #hashtag nhéeeee #Kien Hán Trung #aothatday 0911667993 xxx"
@@ -41,6 +41,15 @@ class MainActivity : AppCompatActivity() {
                         object : GapoOnClickSpanListener {
                             override fun onClickSpan(view: View, value: Any, start: Int, end: Int) {
                                 Log.e("TAG", "onClickSpan: = $value")
+                            }
+
+                            override fun onLongClickSpan(
+                                view: View,
+                                value: Any,
+                                start: Int,
+                                end: Int
+                            ) {
+                                Log.e("TAG", "onLongClickSpan: = $value")
                             }
                         }
                     )
