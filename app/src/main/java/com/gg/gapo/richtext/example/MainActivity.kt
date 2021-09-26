@@ -60,21 +60,18 @@ class MainActivity : AppCompatActivity() {
 
         binding.text.movementMethod = LinkMovementMethod.getInstance()
 
-        val text =
-            "kienht vietth huykn trieunh toandk\n " +
-                    "# Heading 1\n" +
-                    "## Heading 2\n" +
-                    "### Heading 3\n" + "Email kienht@gapo.vn Hán 0911667993 Trung https://kien.dev Kiên #hashtag nhéeeee #Kien Hán Trung #aothatday 0911667993 xxx"
-
+        val text = "Hán Trung Kiên\nTrần Hoàng Việt\nKhúc Ngọc Huy\nNguyễn Hải Triều\nĐỗ Khánh Toàn\n# GapoWork\n## Nền tảng giao tiếp dành cho doanh nghiệp\nCải thiện sự kết nối giữa nhân viên trong tổ chức thông qua các tính năng phục vụ giao tiếp và tương tác. Từ đó thúc đẩy việc hiện thực hóa mục tiêu chung và lan tỏa giá trị cốt lõi.\n\n## Trò chuyện, nhắn tin với mọi người\n0969696969\nkienht@gapo.vn\nhttps://www.gapowork.vn\n#GapoWork đảm bảo truyền tải thông điệp quan trọng cho đúng người, vào đúng thời điểm, theo đúng cách.Phát triển khả năng tương tác đa chiều thông qua công cụ Chat."
         val seeMore = "\n...Xem thêm"
 
         val mentionMetadata = listOf(
-            GapoRichTextMetadata("kienht", 0, 6),
-            GapoRichTextMetadata("vietth", 7, 13),
-            GapoRichTextMetadata("huykn", 14, 19),
-            GapoRichTextMetadata("trieunh", 20, 27),
-            GapoRichTextMetadata("toandk", 28, 34),
+            GapoRichTextMetadata("kienht", 0, 14),
+            GapoRichTextMetadata("vietth", 15, 30),
+            GapoRichTextMetadata("huykn", 31, 44),
+            GapoRichTextMetadata("trieunh", 45, 61),
+            GapoRichTextMetadata("toandk", 62, 75),
         )
+
+        val color = Color.parseColor("#30A960")
 
         binding.text.doOnPreDraw {
             val richText = GapoRichText.Builder()
@@ -82,8 +79,7 @@ class MainActivity : AppCompatActivity() {
                 .addSpanner(GapoRichTextMarkdownSpanner(markwon))
                 .addSpanner(
                     GapoRichTextMetadataSpanner.Params()
-                        .setBackgroundColor(Color.GREEN)
-                        .setForegroundColor(Color.MAGENTA)
+                        .setForegroundColor(color)
                         .setMetadataParser(GapoRichTextHashtagMetadataParser)
                         .setOnClickListener(
                             object : GapoOnClickSpanListener {
@@ -101,8 +97,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 .addSpanner(
                     GapoRichTextMetadataSpanner.Params()
-                        .setForegroundColor(Color.CYAN)
-                        .setStrikethrough(true)
+                        .setForegroundColor(color)
                         .setMetadataParser(GapoRichTextPhoneNumberMetadataParser)
                         .setOnClickListener(
                             object : GapoOnClickSpanListener {
@@ -120,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 .addSpanner(
                     GapoRichTextMetadataSpanner.Params()
-                        .setForegroundColor(Color.RED)
+                        .setForegroundColor(color)
                         .setUnderline(true)
                         .setMetadataParser(GapoRichTextUrlMetadataParser)
                         .setOnClickListener(
@@ -139,7 +134,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 .addSpanner(
                     GapoRichTextMetadataSpanner.Params()
-                        .setForegroundColor(Color.RED)
+                        .setForegroundColor(color)
                         .setUnderline(true)
                         .setMetadataParser(GapoRichTextEmailMetadataParser)
                         .setOnClickListener(
@@ -158,7 +153,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 .addSpanner(
                     GapoRichTextMetadataSpanner.Params()
-                        .setForegroundColor(Color.RED)
+                        .setForegroundColor(color)
                         .setMetadata(mentionMetadata)
                         .setOnClickListener(
                             object : GapoOnClickSpanListener {
@@ -177,11 +172,11 @@ class MainActivity : AppCompatActivity() {
                 .setSeeMoreType(
                     GapoRichTextSeeMoreType.Line(
                         GapoRichTextMetadataSpanner.Params()
-                            .setForegroundColor(Color.GREEN)
+                            .setForegroundColor(color)
                             .setMetadata(listOf(GapoRichTextMetadata(seeMore, 4, seeMore.length)))
                             .create()
                             .span(seeMore),
-                        10,
+                        24,
                         GapoTextMeasurement.Params.Builder().from(binding.text).build()
                     )
                 )
