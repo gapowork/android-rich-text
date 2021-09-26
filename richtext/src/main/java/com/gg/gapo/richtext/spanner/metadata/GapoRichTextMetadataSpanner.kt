@@ -19,11 +19,7 @@ class GapoRichTextMetadataSpanner private constructor(
 ) : GapoRichTextSpanner {
 
     override fun span(charSequence: CharSequence): Spannable {
-        val spannable = if (charSequence is Spannable) {
-            charSequence
-        } else {
-            charSequence.toSpannable()
-        }
+        val spannable = charSequence.toSpannable()
         params.metadata.forEach { meta ->
             spannable.span(
                 params,

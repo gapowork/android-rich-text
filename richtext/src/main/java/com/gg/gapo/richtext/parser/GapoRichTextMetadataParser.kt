@@ -16,7 +16,7 @@ abstract class GapoRichTextMetadataParser {
             val range = result.range
             val start = range.first
             val end = start + value.length
-            GapoRichTextMetadata(start, end, value)
+            GapoRichTextMetadata(value, start, end)
         }.toList()
     }
 }

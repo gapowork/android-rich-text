@@ -5,7 +5,7 @@ package com.gg.gapo.richtext.spanner.metadata
  * @since 26/09/2021
  */
 data class GapoRichTextMetadata(
+    val value: Any,
     val start: Int,
-    val end: Int,
-    val value: Any
+    val end: Int
 )
