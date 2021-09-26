@@ -2,14 +2,14 @@ package com.gg.gapo.richtext.example
 
 import android.graphics.Color
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnPreDraw
 import com.gg.gapo.richtext.GapoOnClickSpanListener
 import com.gg.gapo.richtext.GapoRichText
+import com.gg.gapo.richtext.GapoRichTextLinkMovementMethod
 import com.gg.gapo.richtext.example.databinding.ActivityMainBinding
 import com.gg.gapo.richtext.measurement.GapoTextMeasurement
 import com.gg.gapo.richtext.parser.email.GapoRichTextEmailMetadataParser
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.text.movementMethod = LinkMovementMethod.getInstance()
+        binding.text.movementMethod = GapoRichTextLinkMovementMethod.instance
 
         val text = "Hán Trung Kiên\nTrần Hoàng Việt\nKhúc Ngọc Huy\nNguyễn Hải Triều\nĐỗ Khánh Toàn\n# GapoWork\n## Nền tảng giao tiếp dành cho doanh nghiệp\nCải thiện sự kết nối giữa nhân viên trong tổ chức thông qua các tính năng phục vụ giao tiếp và tương tác. Từ đó thúc đẩy việc hiện thực hóa mục tiêu chung và lan tỏa giá trị cốt lõi.\n\n## Trò chuyện, nhắn tin với mọi người\n0969696969\nkienht@gapo.vn\nhttps://www.gapowork.vn\n#GapoWork đảm bảo truyền tải thông điệp quan trọng cho đúng người, vào đúng thời điểm, theo đúng cách.Phát triển khả năng tương tác đa chiều thông qua công cụ Chat."
         val seeMore = "\n...Xem thêm"
@@ -90,6 +90,15 @@ class MainActivity : AppCompatActivity() {
                                     end: Int
                                 ) {
                                     Log.e("TAG", "onClickSpan: = $value")
+                                }
+
+                                override fun onLongClickSpan(
+                                    view: View,
+                                    value: Any,
+                                    start: Int,
+                                    end: Int
+                                ) {
+                                    Log.e("TAG", "onLongClickSpan: = $value")
                                 }
                             }
                         )
