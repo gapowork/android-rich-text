@@ -13,6 +13,7 @@ import com.gg.gapo.richtext.parser.email.GapoRichTextEmailMetadataParser
 import com.gg.gapo.richtext.parser.hashtag.GapoRichTextHashtagMetadataParser
 import com.gg.gapo.richtext.parser.phonenumber.GapoRichTextPhoneNumberMetadataParser
 import com.gg.gapo.richtext.parser.url.GapoRichTextUrlMetadataParser
+import com.gg.gapo.richtext.setOnClickNotSpanListener
 import com.gg.gapo.richtext.spanner.metadata.GapoRichTextMetadataSpanner
 
 /**
@@ -100,5 +101,9 @@ class MainActivity : AppCompatActivity() {
             .build()
 
         binding.text.text = richText.spannable
+
+        binding.text.setOnClickNotSpanListener {
+            Log.e("TAG", "onClickText")
+        }
     }
 }
