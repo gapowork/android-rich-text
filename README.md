@@ -1,6 +1,6 @@
 # GapoRichText
 
-**GapoRichText** supports Hashtag(#), Mention(@), URLs, Phone, Email, Markdown, Custom Span, SeeMore/SeeLess and ability to handle clicks and long clicks on Spanned content.
+**GapoRichText** supports Hashtag(#), Mention(@), URLs, Phone Number, Email, Markdown, Custom Span, SeeMore/SeeLess and ability to handle clicks and long clicks on Spanned content.
 
 ## Installation
 
@@ -11,7 +11,7 @@ implementation 'com.gg.gapo.richtext:GapoRichText:1.0.0'
 
 ## Usage
 
-Example:
+[Example](https://github.com/hantrungkien/GapoRichText/blob/feature%2Flong-click-span/app/src/main/java/com/gg/gapo/richtext/example/MainActivity.kt):
 
 ```kotlin
 val richText = GapoRichText.Builder()
@@ -58,10 +58,41 @@ binding.textView.text = richText.spannable
 ```
 - Mention: `@mention`
 ```kotlin
-.setMetadata(GapoRichTextHashtagMetadataParser.parse(text))
+.setMetadata(GapoRichTextUrlMetadataParser.parse(text))
 ```
 - URLs
-- Phone
+```kotlin
+.setMetadata(GapoRichTextUrlMetadataParser.parse(text))
+```
+- Phone Number
+```kotlin
+.setMetadata(GapoRichTextPhoneNumberMetadataParser.parse(text))
+```
 - Email
+```kotlin
+.setMetadata(GapoRichTextEmailMetadataParser.parse(text))
+```
 - Markdown
+```kotlin
+.setMetadata(GapoRichTextUrlMetadataParser.parse(text))
+```
 - SeeMore/SeeLess
+```kotlin
+val seeMore = " ...Xem thêm"
+
+val richText = GapoRichText.Builder()
+    .setOriginal(text)
+    .addSpanner(...)
+    .setSeeMoreType(
+        GapoRichTextSeeMoreType.Line(
+            seeMore = GapoRichTextMetadataSpanner.Params()
+                .setForegroundColor(Color.GREEN)
+                .setMetadata(listOf(GapoRichTextMetadata(seeMore, 4, seeMore.length)))
+                .create()
+                .span(seeMore),
+            line = 3,
+            measurementParams = GapoTextMeasurement.Params.Builder().from(binding.text).build()
+        )
+    )
+binding.textView.text = richText.shortSpannable
+```

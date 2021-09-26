@@ -126,13 +126,14 @@ class MainActivity : AppCompatActivity() {
                 )
                 .setSeeMoreType(
                     GapoRichTextSeeMoreType.Line(
-                        GapoRichTextMetadataSpanner.Params()
+                        seeMore = GapoRichTextMetadataSpanner.Params()
                             .setForegroundColor(Color.GREEN)
                             .setMetadata(listOf(GapoRichTextMetadata(seeMore, 4, seeMore.length)))
                             .create()
                             .span(seeMore),
-                        3,
-                        GapoTextMeasurement.Params.Builder().from(binding.text).build()
+                        line = 3,
+                        measurementParams = GapoTextMeasurement.Params.Builder().from(binding.text)
+                            .build()
                     )
                 )
                 .build()
