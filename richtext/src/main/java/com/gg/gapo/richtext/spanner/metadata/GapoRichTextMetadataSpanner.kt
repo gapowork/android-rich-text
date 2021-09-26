@@ -8,6 +8,7 @@ import androidx.annotation.ColorInt
 import androidx.core.text.toSpannable
 import com.gg.gapo.richtext.GapoOnClickSpanListener
 import com.gg.gapo.richtext.spanner.GapoRichTextClickableSpan
+import com.gg.gapo.richtext.parser.GapoRichTextMetadataParser
 import com.gg.gapo.richtext.spanner.GapoRichTextSpanner
 
 /**
@@ -19,8 +20,9 @@ class GapoRichTextMetadataSpanner private constructor(
 ) : GapoRichTextSpanner {
 
     override fun span(charSequence: CharSequence): Spannable {
+        val metadata = params.metadataParser?.parse(charSequence) ?: params.metadata
         val spannable = charSequence.toSpannable()
-        params.metadata.forEach { meta ->
+        metadata.forEach { meta ->
             spannable.span(
                 params,
                 meta,
@@ -50,6 +52,8 @@ class GapoRichTextMetadataSpanner private constructor(
     class Params {
 
         internal var metadata = listOf<GapoRichTextMetadata>()
+
+        internal var metadataParser: GapoRichTextMetadataParser? = null
 
         @ColorInt
         private var foregroundColor = 0
@@ -103,6 +107,9 @@ class GapoRichTextMetadataSpanner private constructor(
         }
 
         fun setMetadata(metadata: List<GapoRichTextMetadata>) = apply { this.metadata = metadata }
+
+        fun setMetadataParser(metadataParser: GapoRichTextMetadataParser) =
+            apply { this.metadataParser = metadataParser }
 
         fun setBackgroundColor(@ColorInt backgroundColor: Int) =
             apply { this.backgroundColor = backgroundColor }

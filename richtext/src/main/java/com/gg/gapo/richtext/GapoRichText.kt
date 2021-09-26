@@ -14,8 +14,23 @@ import com.gg.gapo.richtext.spanner.seemore.GapoRichTextSeeMoreType
 data class GapoRichText constructor(
     val original: String,
     val spannable: Spannable,
-    val shortSpannable: Spannable?
+    val seeMoreSpannable: Spannable? = null
 ) {
+
+    val isEmpty: Boolean
+        get() = original.isEmpty()
+
+    val hasSeeMore: Boolean
+        get() = seeMoreSpannable != null
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is GapoRichText) return false
+        return other.original == original
+    }
+
+    override fun hashCode(): Int {
+        return original.hashCode()
+    }
 
     class Builder {
 
@@ -39,7 +54,11 @@ data class GapoRichText constructor(
             var spannable = original.toSpannable()
 
             spanners.forEach {
-                spannable = it.span(spannable)
+                try {
+                    spannable = it.span(spannable)
+                } catch (e: Exception) {
+                    Log.e("GapoRichText", "build: ", e)
+                }
             }
 
             val seeMoreType = this.seeMoreType
