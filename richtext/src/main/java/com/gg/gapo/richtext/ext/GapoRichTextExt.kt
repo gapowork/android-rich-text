@@ -1,4 +1,4 @@
-package com.gg.gapo.richtext
+package com.gg.gapo.richtext.ext
 
 import android.text.SpannableStringBuilder
 
@@ -6,7 +6,7 @@ import android.text.SpannableStringBuilder
  * @author kienht
  * @since 26/09/2021
  */
-fun CharSequence.toSpannableStringBuilder(): SpannableStringBuilder {
+internal fun CharSequence.toSpannableStringBuilder(): SpannableStringBuilder {
     return if (this is SpannableStringBuilder) {
         this
     } else {
