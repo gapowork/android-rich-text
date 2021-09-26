@@ -1,10 +1,14 @@
 # GapoRichText
 
-**GapoRichText** supports Hashtag(#), Mention(@), URLs, Phone Number, Email, Markdown, Custom Span, SeeMore/SeeLess and ability to handle clicks and long clicks on Spanned content.
+**GapoRichText** supports Hashtag(#), Mention(@), URLs, Phone Number, Email, Markdown, Custom Span,
+SeeMore/SeeLess and ability to handle clicks and long clicks on Spanned content.
+
+![](gapo-rich-text-screenshot.png)
 
 ## Installation
 
 Gradle
+
 ```gradle
 implementation 'com.github.hantrungkien:gapo-richtext:1.0.0-alpha01'
 ```
@@ -119,7 +123,9 @@ private val markwon by lazy(LazyThreadSafetyMode.NONE) {
 }
 .addSpanner(GapoRichTextMarkdownSpanner(markwon))
 ```
-- SeeMore/SeeLess
+
+- SeeMore/SeeLess: Support length and line
+  type  [GapoRichTextSeeMoreType](/richtext/src/main/java/com/gg/gapo/richtext/spanner/seemore/GapoRichTextSeeMoreType.kt)
 ```kotlin
 val seeMore = " ...Xem thêm"
 
