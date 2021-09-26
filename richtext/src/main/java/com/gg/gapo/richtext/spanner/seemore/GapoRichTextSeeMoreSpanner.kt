@@ -32,6 +32,8 @@ internal class GapoRichTextSeeMoreSpanner(
                 var contentLineCount = measureLineCount(limitedCountContent, type.measurementParams)
                 val expectedContentLineCount = type.line
 
+                if (expectedContentLineCount > contentLineCount) return charSequence.toSpannable()
+
                 while (contentLineCount > expectedContentLineCount) {
                     var indexToSubStr = limitedCountContent.length / 2
                     var newValue =

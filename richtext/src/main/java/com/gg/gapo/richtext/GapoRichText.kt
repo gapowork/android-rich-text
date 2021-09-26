@@ -55,5 +55,13 @@ data class GapoRichText constructor(
 
             return GapoRichText(this.original, spannable, shortSpannable)
         }
+
+        companion object {
+            private const val SPACE = " "
+            private const val NO_POSITION = -1
+            private const val FIRST_POSITION = 0
+
+
+        }
     }
 }
