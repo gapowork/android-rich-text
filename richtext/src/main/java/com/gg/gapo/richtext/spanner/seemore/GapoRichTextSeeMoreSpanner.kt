@@ -28,36 +28,36 @@ internal class GapoRichTextSeeMoreSpanner(
                     .append(seeMore)
             }
             is GapoRichTextSeeMoreType.Line -> {
-                var limitedCountContent = charSequence
-                var contentLineCount = measureLineCount(limitedCountContent, type.measurementParams)
                 val expectedContentLineCount = type.line
 
-                if (expectedContentLineCount > contentLineCount) return charSequence.toSpannable()
+                var limitedLineCountContent = charSequence
+                var contentLineCount =
+                    measureLineCount(limitedLineCountContent, type.measurementParams)
 
-                while (contentLineCount > expectedContentLineCount) {
-                    var indexToSubStr = limitedCountContent.length / 2
-                    var newValue =
-                        limitedCountContent.subSequence(0, indexToSubStr)
-                    var newCount = measureLineCount(newValue, type.measurementParams)
+                if (contentLineCount < expectedContentLineCount) return charSequence.toSpannable()
 
-                    while (newCount < expectedContentLineCount) {
-                        indexToSubStr = (indexToSubStr * 2 / 1.5).toInt()
-                        newValue = limitedCountContent.subSequence(0, indexToSubStr)
+                var startIndex = 0
+                var length = limitedLineCountContent.length
+                var endIndex = length / 2
 
-                        newCount = measureLineCount(newValue, type.measurementParams)
+                while (contentLineCount != expectedContentLineCount) {
+                    limitedLineCountContent = charSequence.subSequence(0, endIndex)
+                    contentLineCount =
+                        measureLineCount(limitedLineCountContent, type.measurementParams)
+
+                    if (contentLineCount > expectedContentLineCount) {
+                        startIndex = 0
+                        length = endIndex
+                    } else {
+                        startIndex = endIndex
                     }
-
-                    limitedCountContent = newValue
-                    contentLineCount = newCount
+                    endIndex = (length + startIndex) / 2
                 }
 
-                if (contentLineCount == expectedContentLineCount) {
-                    val indexToSubStr = charSequence.findIndexToSubStr(limitedCountContent.length)
-                    limitedCountContent =
-                        charSequence.subSequence(0, indexToSubStr)
-                }
+                endIndex = charSequence.findIndexToSubStr(limitedLineCountContent.length)
+                limitedLineCountContent = charSequence.subSequence(0, endIndex)
 
-                return limitedCountContent.toSpannableStringBuilder().append(seeMore)
+                return limitedLineCountContent.toSpannableStringBuilder().append(seeMore)
             }
         }
     }

@@ -181,13 +181,17 @@ class MainActivity : AppCompatActivity() {
                             .setMetadata(listOf(GapoRichTextMetadata(seeMore, 4, seeMore.length)))
                             .create()
                             .span(seeMore),
-                        8,
+                        10,
                         GapoTextMeasurement.Params.Builder().from(binding.text).build()
                     )
                 )
                 .build()
 
-            binding.text.text = richText.spannable
+            binding.text.text = if (richText.seeMoreSpannable != null) {
+                richText.seeMoreSpannable
+            } else {
+                richText.spannable
+            }
         }
     }
 }
