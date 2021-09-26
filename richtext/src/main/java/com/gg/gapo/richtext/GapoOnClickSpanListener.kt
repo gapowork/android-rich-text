@@ -14,4 +14,6 @@ interface GapoOnClickSpanListener {
     }
 
     fun onClickSpan(view: View, value: Any, start: Int, end: Int)
+
+    fun onLongClickSpan(view: View, value: Any, start: Int, end: Int) {}
 }
