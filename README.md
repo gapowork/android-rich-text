@@ -1,7 +1,7 @@
-# RichText
+# Gapo Android RichText
 
-**RichText** supports Hashtag(#), Mention, Url, Phone Number, Email, Markdown, Custom Span,
-SeeMore/SeeLess by line or length, and ability to handle clicks and long clicks on Spanned content.
+**RichText** supports Hashtag, Mention, Url, Phone Number, Email, Markdown, Custom Span,
+SeeMore/SeeLess by limited line or length, and ability to handle clicks and long clicks on spanned content.
 
 ![](rich-text-screenshot.png)
 
@@ -10,18 +10,12 @@ SeeMore/SeeLess by line or length, and ability to handle clicks and long clicks 
 Gradle
 
 ```gradle
-allprojects {
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
-}
-
-implementation 'com.github.hantrungkien:richtext:1.0.0-alpha01'
+implementation 'com.gapo.richtext:richtext:1.0.0-alpha01'
 ```
 
 ## Usage
 
-[Example](/app/src/main/java/com/kienht/richtext/example/MainActivity.kt):
+[Example](/app/src/main/java/com/gapo/richtext/example/MainActivity.kt):
 
 ```kotlin
 val color = Color.parseColor("#30A960")
@@ -32,7 +26,7 @@ val richText = RichText.Builder()
        RichTextMetadataSpanner.Params()
            .setForegroundColor(color)
            .setUnderline(true)
-           .setMetadataParser(RichTextHashtagMetadataParser)
+           .setMetadataParser(RichTextHashtagMetadataParser())
            .setOnClickListener(
                object : RichTextOnClickSpanListener {
                    override fun onClickSpan(view: View, metadata: RichTextMetadata) {
@@ -60,7 +54,7 @@ binding.textView.text = richText.spannable
 ```kotlin
 .addSpanner(
     RichTextMetadataSpanner.Params()
-        .setMetadataParser(RichTextHashtagMetadataParser)
+        .setMetadataParser(RichTextHashtagMetadataParser())
         .create()
 )
 ```
@@ -72,35 +66,36 @@ val mentionMetadata = listOf(
 )
 .addSpanner(
     RichTextMetadataSpanner.Params()
-        .setMetadata(mentionMetadata)
+        .setMetadata(mentionMetadata) // or
+        .setMetadataParser(RichTextMentionMetadataParser())
         .create()
 )
 ```
-- URL
+- URL:
 ```kotlin
 .addSpanner(
     RichTextMetadataSpanner.Params()
-        .setMetadataParser(RichTextUrlMetadataParser)
+        .setMetadataParser(RichTextUrlMetadataParser())
         .create()
 )
 ```
-- Phone Number
+- Phone Number:
 ```kotlin
 .addSpanner(
     RichTextMetadataSpanner.Params()
-        .setMetadataParser(RichTextPhoneNumberMetadataParser)
+        .setMetadataParser(RichTextPhoneNumberMetadataParser())
         .create()
 )
 ```
-- Email
+- Email:
 ```kotlin
 .addSpanner(
     RichTextMetadataSpanner.Params()
-        .setMetadataParser(RichTextEmailMetadataParser)
+        .setMetadataParser(RichTextEmailMetadataParser())
         .create()
 )
 ```
-- Markdown
+- Markdown:
 
 ```gradle
 implementation "io.noties.markwon:core:latest_version"
@@ -128,10 +123,10 @@ private val markwon by lazy(LazyThreadSafetyMode.NONE) {
 .addSpanner(RichTextMarkdownSpanner(markwon))
 ```
 
-- SeeMore/SeeLess: Support length and line
-  type  [RichTextSeeMoreType](/richtext/src/main/java/com/kienht/richtext/spanner/seemore/RichTextSeeMoreType.kt)
+- SeeMore/SeeLess by limited length and line:
+  type  [RichTextSeeMoreType](/richtext/src/main/java/com/gapo/richtext/spanner/seemore/RichTextSeeMoreType.kt)
 ```kotlin
-val seeMore = " ...Xem thêm"
+val seeMore = "...\nXem thêm"
 
 val richText = RichText.Builder()
     .setOriginal(text)
@@ -149,3 +144,34 @@ val richText = RichText.Builder()
     )
 binding.textView.text = richText.seeMoreSpannable
 ```
+
+- [Cached](/richtext/src/main/java/com/gapo/richtext/parse/RichTextMetadataParserSimpleCache.kt)
+
+
+## License
+~~~
+Copyright (c) 2021, Gapo Technology JSC
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of Gapo Technology JSC nor the names of its contributors
+      may be used to endorse or promote products derived from this software
+      without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL GAPO TECHNOLOGY JSC BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+~~~
