@@ -1,50 +1,49 @@
-# GapoRichText
+# RichText
 
-**GapoRichText** supports Hashtag(#), Mention(@), URLs, Phone Number, Email, Markdown, Custom Span,
-SeeMore/SeeLess and ability to handle clicks and long clicks on Spanned content.
+**RichText** supports Hashtag(#), Mention, Url, Phone Number, Email, Markdown, Custom Span,
+SeeMore/SeeLess by line or length, and ability to handle clicks and long clicks on Spanned content.
 
-![](gapo-rich-text-screenshot.png)
+![](rich-text-screenshot.png)
 
 ## Installation
 
 Gradle
 
 ```gradle
-implementation 'com.github.hantrungkien:gapo-richtext:1.0.0-alpha01'
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+implementation 'com.github.hantrungkien:richtext:1.0.0-alpha01'
 ```
 
 ## Usage
 
-[Example](/app/src/main/java/com/gg/gapo/richtext/example/MainActivity.kt):
+[Example](/app/src/main/java/com/kienht/richtext/example/MainActivity.kt):
 
 ```kotlin
 val color = Color.parseColor("#30A960")
 
-val richText = GapoRichText.Builder()
+val richText = RichText.Builder()
     .setOriginal(text)
     .addSpanner(
-       GapoRichTextMetadataSpanner.Params()
+       RichTextMetadataSpanner.Params()
            .setForegroundColor(color)
            .setUnderline(true)
-           .setMetadataParser(GapoRichTextHashtagMetadataParser)
+           .setMetadataParser(RichTextHashtagMetadataParser)
            .setOnClickListener(
-               object : GapoOnClickSpanListener {
-                   override fun onClickSpan(
-                       view: View,
-                       value: Any,
-                       start: Int,
-                       end: Int
-                   ) {
-                       Log.e("TAG", "onClickSpan: = $value")
+               object : RichTextOnClickSpanListener {
+                   override fun onClickSpan(view: View, metadata: RichTextMetadata) {
+                       Log.e("TAG", "onClickSpan: = $metadata")
                    }
 
                    override fun onLongClickSpan(
                        view: View,
-                       value: Any,
-                       start: Int,
-                       end: Int
+                       metadata: RichTextMetadata
                    ) {
-                       Log.e("TAG", "onLongClickSpan: = $value")
+                       Log.e("TAG", "onLongClickSpan: = $metadata")
                    }
                }
            )
@@ -52,56 +51,61 @@ val richText = GapoRichText.Builder()
     )
     .build()
 
-binding.textView.movementMethod = GapoRichTextLinkMovementMethod.instance
+binding.textView.movementMethod = RichTextLinkMovementMethod.instance
 binding.textView.text = richText.spannable
 ```
 
-## Supported Case
+## Supported Cases
 - Hashtag: `#hashtag`
 ```kotlin
 .addSpanner(
-    GapoRichTextMetadataSpanner.Params()
-        .setMetadataParser(GapoRichTextHashtagMetadataParser)
+    RichTextMetadataSpanner.Params()
+        .setMetadataParser(RichTextHashtagMetadataParser)
         .create()
 )
 ```
 - Mention: `@mention`
 ```kotlin
 val mentionMetadata = listOf(
-    GapoRichTextMetadata("kienht", 0, 14),
-    GapoRichTextMetadata("vietth", 15, 30),
+    RichTextMetadata("kienht", 0, 14),
+    RichTextMetadata("vietth", 15, 30),
 )
 .addSpanner(
-    GapoRichTextMetadataSpanner.Params()
+    RichTextMetadataSpanner.Params()
         .setMetadata(mentionMetadata)
         .create()
 )
 ```
-- URLs
+- URL
 ```kotlin
 .addSpanner(
-    GapoRichTextMetadataSpanner.Params()
-        .setMetadataParser(GapoRichTextUrlMetadataParser)
+    RichTextMetadataSpanner.Params()
+        .setMetadataParser(RichTextUrlMetadataParser)
         .create()
 )
 ```
 - Phone Number
 ```kotlin
 .addSpanner(
-    GapoRichTextMetadataSpanner.Params()
-        .setMetadataParser(GapoRichTextPhoneNumberMetadataParser)
+    RichTextMetadataSpanner.Params()
+        .setMetadataParser(RichTextPhoneNumberMetadataParser)
         .create()
 )
 ```
 - Email
 ```kotlin
 .addSpanner(
-    GapoRichTextMetadataSpanner.Params()
-        .setMetadataParser(GapoRichTextEmailMetadataParser)
+    RichTextMetadataSpanner.Params()
+        .setMetadataParser(RichTextEmailMetadataParser)
         .create()
 )
 ```
 - Markdown
+
+```gradle
+implementation "io.noties.markwon:core:latest_version"
+```
+
 ```kotlin
 private val markwon by lazy(LazyThreadSafetyMode.NONE) {
     Markwon.builder(this)
@@ -121,26 +125,26 @@ private val markwon by lazy(LazyThreadSafetyMode.NONE) {
         .usePlugin(TaskListPlugin.create(this))
         .build()
 }
-.addSpanner(GapoRichTextMarkdownSpanner(markwon))
+.addSpanner(RichTextMarkdownSpanner(markwon))
 ```
 
 - SeeMore/SeeLess: Support length and line
-  type  [GapoRichTextSeeMoreType](/richtext/src/main/java/com/gg/gapo/richtext/spanner/seemore/GapoRichTextSeeMoreType.kt)
+  type  [RichTextSeeMoreType](/richtext/src/main/java/com/kienht/richtext/spanner/seemore/RichTextSeeMoreType.kt)
 ```kotlin
 val seeMore = " ...Xem thêm"
 
-val richText = GapoRichText.Builder()
+val richText = RichText.Builder()
     .setOriginal(text)
     .addSpanner(...)
     .setSeeMoreType(
-        GapoRichTextSeeMoreType.Line(
-            seeMore = GapoRichTextMetadataSpanner.Params()
+        RichTextSeeMoreType.Line(
+            seeMore = RichTextMetadataSpanner.Params()
                 .setForegroundColor(color)
-                .setMetadata(listOf(GapoRichTextMetadata(seeMore, 4, seeMore.length)))
+                .setMetadata(listOf(RichTextMetadata(seeMore, 4, seeMore.length)))
                 .create()
                 .span(seeMore),
             line = 24,
-            measurementParams = GapoTextMeasurement.Params.Builder().from(binding.text).build()
+            measurementParams = RichTextMeasurement.Params.Builder().from(binding.text).build()
         )
     )
 binding.textView.text = richText.seeMoreSpannable
