@@ -142,7 +142,11 @@ val richText = RichText.Builder()
             measurementParams = RichTextMeasurement.Params.Builder().from(binding.text).build()
         )
     )
-binding.textView.text = richText.seeMoreSpannable
+binding.text.text = if (richText.seeMoreSpannable != null) {
+    richText.seeMoreSpannable
+} else {
+    richText.spannable
+}
 ```
 
 - [Cached](/richtext/src/main/java/com/gapo/richtext/parse/RichTextMetadataParserSimpleCache.kt)

@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnPreDraw
 import com.gapo.richtext.RichTextOnClickSpanListener
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.text.highlightColor = Color.TRANSPARENT
         binding.text.movementMethod = RichTextLinkMovementMethod.instance
 
         val text =
@@ -165,14 +167,12 @@ class MainActivity : AppCompatActivity() {
                 )
             val richText = builder.build()
 
-            binding.text.text = if (richText.seeMoreSpannable != null) {
+            val spannable = if (richText.seeMoreSpannable != null) {
                 richText.seeMoreSpannable
             } else {
                 richText.spannable
             }
-
-            Log.e("TAG", "onCreate: test")
-            builder.build()
+            binding.text.setText(spannable, TextView.BufferType.SPANNABLE)
         }
     }
 }
