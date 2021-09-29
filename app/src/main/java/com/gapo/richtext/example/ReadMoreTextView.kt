@@ -40,7 +40,7 @@ class ReadMoreTextView @JvmOverloads constructor(
     fun setText(
         richText: RichText?,
         isFullTextShown: Boolean,
-        listener: OnClickTextContentListener? = null
+        onClickTextContent: () -> Unit
     ) {
         this.isFullTextShown = isFullTextShown
         this.richText = richText
@@ -55,7 +55,7 @@ class ReadMoreTextView @JvmOverloads constructor(
         }
         setText(text, BufferType.SPANNABLE)
         richTextHelper.setOnClickNotSpanListener {
-            listener?.onClickTextContent()
+            onClickTextContent()
         }
     }
 
