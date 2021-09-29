@@ -36,7 +36,7 @@ internal class RichTextSeeMoreSpanner(
 
                 if (contentLineCount < expectedContentLineCount) return charSequence.toSpannable()
 
-                var startIndex = 0
+                var startIndex: Int
                 var length = limitedLineCountContent.length
                 var endIndex = length / 2
 
