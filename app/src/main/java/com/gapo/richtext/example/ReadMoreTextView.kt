@@ -23,7 +23,7 @@ class ReadMoreTextView @JvmOverloads constructor(
     private var isFullTextShown = false
 
     private var richText: RichText? = null
-    private val richTextHelper: RichTextHelper = RichTextHelper(this)
+    private val richTextHelper = RichTextHelper(this)
 
     init {
         setText(SpannableString(""), BufferType.SPANNABLE)
@@ -74,10 +74,5 @@ class ReadMoreTextView @JvmOverloads constructor(
         setText(text, BufferType.SPANNABLE)
         isFullTextShown = !isFullTextShown
         return isFullTextShown
-    }
-
-    interface OnClickTextContentListener {
-
-        fun onClickTextContent()
     }
 }

@@ -18,6 +18,11 @@ implementation 'vn.gapowork.richtext:richtext:1.0.0-alpha01'
 [Example](/app/src/main/java/com/gapo/richtext/example/MainActivity.kt):
 
 ```kotlin
+
+private val richTextHelper = RichTextHelper(binding.textView)
+richTextHelper.removeHighLight()
+richTextHelper.setOnClickNotSpanListener { }
+
 val color = Color.parseColor("#30A960")
 
 val richText = RichText.Builder()
@@ -45,8 +50,13 @@ val richText = RichText.Builder()
     )
     .build()
 
-binding.textView.movementMethod = RichTextLinkMovementMethod.instance
 binding.textView.text = richText.spannable
+```
+
+## RecyclerView
+
+```kotlin
+richTextHelper.setSpannableFactory()
 ```
 
 ## Supported Cases

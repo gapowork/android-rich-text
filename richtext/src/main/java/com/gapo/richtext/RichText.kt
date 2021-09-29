@@ -42,6 +42,7 @@ data class RichText constructor(
             apply { this.seeMoreType = seeMoreType }
 
         fun build(): RichText {
+            if (text.isEmpty()) return RichText(text, text.toSpannable(), null)
             var spannable = text.toSpannable()
 
             spanners.forEach {

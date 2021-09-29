@@ -49,7 +49,9 @@ class RichTextAdapter(
         private val textView: ReadMoreTextView = view.findViewById(R.id.text_read_more)
 
         private val seeMore = "...\nXem thêm"
+
         private val color = Color.parseColor("#30A960")
+
         private val mentionMetadata = listOf(
             RichTextMetadata("kienht", 0, 14),
             RichTextMetadata("vietth", 15, 30),
@@ -58,9 +60,7 @@ class RichTextAdapter(
             RichTextMetadata("toandk", 62, 75),
         )
 
-
         fun bind(content: String) {
-
             textView.doOnPreDraw {
                 val richText = createRichText {
                     setText(content)
