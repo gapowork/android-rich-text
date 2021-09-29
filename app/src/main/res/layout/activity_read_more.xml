@@ -9,11 +9,12 @@
         android:padding="12dp"
         tools:context=".MainActivity">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text"
+        <com.gapo.richtext.example.ReadMoreTextView
+            android:id="@+id/text_read_more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="18sp" />
+
     </FrameLayout>
 </layout>

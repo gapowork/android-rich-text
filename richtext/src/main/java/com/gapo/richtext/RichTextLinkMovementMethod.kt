@@ -5,7 +5,6 @@ import android.os.Looper
 import android.text.Selection
 import android.text.Spannable
 import android.text.method.LinkMovementMethod
-import android.text.method.MovementMethod
 import android.view.MotionEvent
 import android.widget.TextView
 
@@ -13,7 +12,9 @@ import android.widget.TextView
  * @author vietth
  * @since 26/09/2021
  */
-class RichTextLinkMovementMethod : LinkMovementMethod() {
+object RichTextLinkMovementMethod : LinkMovementMethod() {
+
+    private const val LONG_CLICK_TIME = 500L
 
     private var longClickHandler: Handler? = null
     private var isLongPressed = false
@@ -39,6 +40,7 @@ class RichTextLinkMovementMethod : LinkMovementMethod() {
             y -= widget.totalPaddingTop
             x += widget.scrollX
             y += widget.scrollY
+
             val layout = widget.layout
             val line = layout.getLineForVertical(y)
             val off = layout.getOffsetForHorizontal(line, x.toFloat())
@@ -47,21 +49,29 @@ class RichTextLinkMovementMethod : LinkMovementMethod() {
                 RichTextClickableSpan::class.java
             )
 
+            val xx = event.x.toInt()
+            val lineLeft = layout.getLineLeft(line)
+            val lineRight = layout.getLineRight(line)
+
+            if (xx > lineRight || xx >= 0 && xx < lineLeft) {
+                return true
+            }
+
             if (link.isNotEmpty()) {
                 if (action == MotionEvent.ACTION_UP) {
                     longClickHandler?.removeCallbacksAndMessages(null)
                     if (!isLongPressed) {
-                        link[0].onClick(widget)
+                        link.first().onClick(widget)
                     }
                     isLongPressed = false
                 } else {
                     Selection.setSelection(
                         buffer,
-                        buffer.getSpanStart(link[0]),
-                        buffer.getSpanEnd(link[0])
+                        buffer.getSpanStart(link.first()),
+                        buffer.getSpanEnd(link.first())
                     )
                     longClickHandler?.postDelayed({
-                        link[0].onLongClick(widget)
+                        link.first().onLongClick(widget)
                         isLongPressed = true
                     }, LONG_CLICK_TIME)
                 }
@@ -69,20 +79,5 @@ class RichTextLinkMovementMethod : LinkMovementMethod() {
             }
         }
         return super.onTouchEvent(widget, buffer, event)
-    }
-
-    companion object {
-
-        private const val LONG_CLICK_TIME = 500L
-
-        val instance: MovementMethod?
-            get() {
-                if (sInstance == null) {
-                    sInstance = RichTextLinkMovementMethod()
-                }
-                return sInstance
-            }
-
-        private var sInstance: RichTextLinkMovementMethod? = null
     }
 }
