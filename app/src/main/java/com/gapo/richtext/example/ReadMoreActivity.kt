@@ -5,14 +5,11 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnPreDraw
 import com.gapo.richtext.RichText
-import com.gapo.richtext.RichTextLinkMovementMethod
 import com.gapo.richtext.RichTextOnClickSpanListener
-import com.gapo.richtext.example.databinding.ActivityMainBinding
-import com.gapo.richtext.ext.RichTextHelper
+import com.gapo.richtext.example.databinding.ActivityReadMoreBinding
 import com.gapo.richtext.measurement.RichTextMeasurement
 import com.gapo.richtext.parser.email.RichTextEmailMetadataParser
 import com.gapo.richtext.parser.hashtag.RichTextHashtagMetadataParser
@@ -34,7 +31,7 @@ import io.noties.markwon.ext.tasklist.TaskListPlugin
  * @author kienht
  * @since 26/09/2021
  */
-class MainActivity : AppCompatActivity() {
+class ReadMoreActivity : AppCompatActivity() {
 
     private val markwon by lazy(LazyThreadSafetyMode.NONE) {
         Markwon.builder(this)
@@ -57,17 +54,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        val binding = ActivityReadMoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        RichTextHelper(binding.text).apply {
-            removeHighLight()
-            setOnClickNotSpanListener {
-                Log.e("TAG", "onClickText")
-            }
-        }
-
-        binding.text.movementMethod = RichTextLinkMovementMethod
 
         val text =
             "Hán Trung Kiên\nTrần Hoàng Việt\nKhúc Ngọc Huy\nNguyễn Hải Triều\nĐỗ Khánh Toàn\n# GapoWork\n## Nền tảng giao tiếp dành cho doanh nghiệp\nCải thiện sự kết nối giữa nhân viên trong tổ chức thông qua các tính năng phục vụ giao tiếp và tương tác. Từ đó thúc đẩy việc hiện thực hóa mục tiêu chung và lan tỏa giá trị cốt lõi.\n\n## Trò chuyện, nhắn tin với mọi người\n0969696969\nkienht@gapo.vn\nhttps://www.gapowork.vn\n#GapoWork đảm bảo truyền tải thông điệp quan trọng cho đúng người, vào đúng thời điểm, theo đúng cách.Phát triển khả năng tương tác đa chiều thông qua công cụ Chat."
@@ -83,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         val color = Color.parseColor("#30A960")
 
-        binding.text.doOnPreDraw {
+        binding.textReadMore.doOnPreDraw {
             val builder = RichText.Builder()
                 .setText(text)
                 .addSpanner(RichTextMarkdownSpanner(markwon))
@@ -168,18 +156,18 @@ class MainActivity : AppCompatActivity() {
                             .setMetadata(listOf(RichTextMetadata(seeMore, 4, seeMore.length)))
                             .create()
                             .span(seeMore),
-                        24,
-                        RichTextMeasurement.Params.Builder().from(binding.text).build()
+                        10,
+                        RichTextMeasurement.Params.Builder().from(binding.textReadMore).build()
                     )
                 )
             val richText = builder.build()
 
-            val spannable = if (richText.seeMoreSpannable != null) {
-                richText.seeMoreSpannable
-            } else {
-                richText.spannable
-            }
-            binding.text.setText(spannable, TextView.BufferType.SPANNABLE)
+            binding.textReadMore.setText(richText, false,
+                object : ReadMoreTextView.OnClickTextContentListener {
+                    override fun onClickTextContent() {
+                        binding.textReadMore.toggle()
+                    }
+                })
         }
     }
 }

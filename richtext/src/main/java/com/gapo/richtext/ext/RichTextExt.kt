@@ -14,11 +14,3 @@ internal fun CharSequence.toSpannableStringBuilder(): SpannableStringBuilder {
         SpannableStringBuilder(this)
     }
 }
-
-fun TextView.setOnClickNotSpanListener(onClick: () -> Unit) {
-    setOnClickListener {
-        if (selectionStart == -1 && selectionEnd == -1) {
-            onClick()
-        }
-    }
-}
