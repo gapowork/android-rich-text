@@ -1,4 +1,4 @@
-package com.gapo.richtext.ext
+package com.gapo.richtext.helper
 
 import android.graphics.Color
 import android.widget.TextView
