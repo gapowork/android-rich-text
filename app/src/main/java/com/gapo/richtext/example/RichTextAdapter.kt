@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.recyclerview.widget.RecyclerView
-import com.gapo.richtext.RichText
 import com.gapo.richtext.RichTextOnClickSpanListener
+import com.gapo.richtext.ext.createRichText
 import com.gapo.richtext.measurement.RichTextMeasurement
 import com.gapo.richtext.parser.email.RichTextEmailMetadataParser
 import com.gapo.richtext.parser.hashtag.RichTextHashtagMetadataParser
@@ -58,12 +58,14 @@ class RichTextAdapter(
             RichTextMetadata("toandk", 62, 75),
         )
 
+
         fun bind(content: String) {
+
             textView.doOnPreDraw {
-                val builder = RichText.Builder()
-                    .setText(content)
-                    .addSpanner(RichTextMarkdownSpanner(markwon))
-                    .addSpanner(
+                val richText = createRichText {
+                    setText(content)
+                    addSpanner(RichTextMarkdownSpanner(markwon))
+                    addSpanner(
                         RichTextMetadataSpanner.Params()
                             .setForegroundColor(color)
                             .setMetadataParser(RichTextHashtagMetadataParser())
@@ -86,7 +88,7 @@ class RichTextAdapter(
                             )
                             .create()
                     )
-                    .addSpanner(
+                    addSpanner(
                         RichTextMetadataSpanner.Params()
                             .setForegroundColor(color)
                             .setMetadataParser(RichTextPhoneNumberMetadataParser())
@@ -102,7 +104,7 @@ class RichTextAdapter(
                             )
                             .create()
                     )
-                    .addSpanner(
+                    addSpanner(
                         RichTextMetadataSpanner.Params()
                             .setForegroundColor(color)
                             .setUnderline(true)
@@ -119,7 +121,7 @@ class RichTextAdapter(
                             )
                             .create()
                     )
-                    .addSpanner(
+                    addSpanner(
                         RichTextMetadataSpanner.Params()
                             .setForegroundColor(color)
                             .setUnderline(true)
@@ -136,7 +138,7 @@ class RichTextAdapter(
                             )
                             .create()
                     )
-                    .addSpanner(
+                    addSpanner(
                         RichTextMetadataSpanner.Params()
                             .setForegroundColor(color)
                             .setMetadata(mentionMetadata)
@@ -152,7 +154,7 @@ class RichTextAdapter(
                             )
                             .create()
                     )
-                    .setSeeMoreType(
+                    setSeeMoreType(
                         RichTextSeeMoreType.Line(
                             RichTextMetadataSpanner.Params()
                                 .setForegroundColor(color)
@@ -163,7 +165,7 @@ class RichTextAdapter(
                             RichTextMeasurement.Params.Builder().from(textView).build()
                         )
                     )
-                val richText = builder.build()
+                }
 
                 textView.setText(
                     richText = richText,

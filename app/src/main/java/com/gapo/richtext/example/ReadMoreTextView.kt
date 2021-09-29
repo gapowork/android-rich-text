@@ -8,7 +8,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.transition.TransitionManager
 import com.gapo.richtext.RichText
 import com.gapo.richtext.RichTextLinkMovementMethod
-import com.gapo.richtext.ext.RichTextHelper
+import com.gapo.richtext.helper.RichTextHelper
 
 /**
  * @author vietth

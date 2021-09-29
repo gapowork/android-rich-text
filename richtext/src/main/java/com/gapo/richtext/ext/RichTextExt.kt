@@ -1,7 +1,7 @@
 package com.gapo.richtext.ext
 
 import android.text.SpannableStringBuilder
-import android.widget.TextView
+import com.gapo.richtext.RichText
 
 /**
  * @author kienht
@@ -14,3 +14,11 @@ internal fun CharSequence.toSpannableStringBuilder(): SpannableStringBuilder {
         SpannableStringBuilder(this)
     }
 }
+
+@DslMarker
+internal annotation class RichTextInlineDsl
+
+@JvmSynthetic
+@RichTextInlineDsl
+inline fun createRichText(crossinline block: RichText.Builder.() -> Unit): RichText =
+    RichText.Builder().apply(block).build()
