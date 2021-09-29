@@ -10,19 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RichText">
         <activity android:name="com.gapo.richtext.example.MainActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
-        </activity>
-        <activity android:name="com.gapo.richtext.example.ReadMoreActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.gapo.richtext.example.ReadMoreActivity" />
     </application>
 
 </manifest>

@@ -26,7 +26,6 @@ class ReadMoreTextView @JvmOverloads constructor(
     private val richTextHelper: RichTextHelper = RichTextHelper(this)
 
     init {
-
         setText(SpannableString(""), BufferType.SPANNABLE)
         movementMethod = RichTextLinkMovementMethod
         richTextHelper.removeHighLight()
@@ -81,5 +80,4 @@ class ReadMoreTextView @JvmOverloads constructor(
 
         fun onClickTextContent()
     }
-
 }
