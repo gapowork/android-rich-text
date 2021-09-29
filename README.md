@@ -3,14 +3,14 @@
 **RichText** supports Hashtag, Mention, Url, Phone Number, Email, Markdown, Custom Span,
 SeeMore/SeeLess by limited line or length, and ability to handle clicks and long clicks on spanned content.
 
-![](rich-text-screenshot.png)
+<img src="/rich-text-screenshot.png" width="288" />
 
 ## Installation
 
 Gradle
 
 ```gradle
-implementation 'com.gapo.richtext:richtext:1.0.0-alpha01'
+implementation 'vn.gapowork.richtext:richtext:1.0.0-alpha01'
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ implementation 'com.gapo.richtext:richtext:1.0.0-alpha01'
 val color = Color.parseColor("#30A960")
 
 val richText = RichText.Builder()
-    .setOriginal(text)
+    .setText(text)
     .addSpanner(
        RichTextMetadataSpanner.Params()
            .setForegroundColor(color)
@@ -103,7 +103,7 @@ implementation "io.noties.markwon:core:latest_version"
 
 ```kotlin
 private val markwon by lazy(LazyThreadSafetyMode.NONE) {
-    Markwon.builder(this)
+    Markwon.builder(context)
         .usePlugin(object : AbstractMarkwonPlugin() {
             override fun configureTheme(builder: MarkwonTheme.Builder) {
                 builder
@@ -142,7 +142,11 @@ val richText = RichText.Builder()
             measurementParams = RichTextMeasurement.Params.Builder().from(binding.text).build()
         )
     )
-binding.textView.text = richText.seeMoreSpannable
+binding.text.text = if (richText.seeMoreSpannable != null) {
+    richText.seeMoreSpannable
+} else {
+    richText.spannable
+}
 ```
 
 - [Cached](/richtext/src/main/java/com/gapo/richtext/parse/RichTextMetadataParserSimpleCache.kt)
