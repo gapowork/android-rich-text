@@ -8,7 +8,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.transition.TransitionManager
 import com.gapo.richtext.RichText
 import com.gapo.richtext.RichTextLinkMovementMethod
-import com.gapo.richtext.ext.RichTextHelper
+import com.gapo.richtext.helper.RichTextHelper
 
 /**
  * @author vietth
@@ -40,7 +40,7 @@ class ReadMoreTextView @JvmOverloads constructor(
     fun setText(
         richText: RichText?,
         isFullTextShown: Boolean,
-        listener: OnClickTextContentListener? = null
+        onClickTextContent: () -> Unit
     ) {
         this.isFullTextShown = isFullTextShown
         this.richText = richText
@@ -55,7 +55,7 @@ class ReadMoreTextView @JvmOverloads constructor(
         }
         setText(text, BufferType.SPANNABLE)
         richTextHelper.setOnClickNotSpanListener {
-            listener?.onClickTextContent()
+            onClickTextContent()
         }
     }
 
