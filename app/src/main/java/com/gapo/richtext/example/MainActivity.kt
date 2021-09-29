@@ -8,9 +8,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnPreDraw
-import com.gapo.richtext.RichTextOnClickSpanListener
 import com.gapo.richtext.RichText
 import com.gapo.richtext.RichTextLinkMovementMethod
+import com.gapo.richtext.RichTextOnClickSpanListener
 import com.gapo.richtext.example.databinding.ActivityMainBinding
 import com.gapo.richtext.ext.RichTextHelper
 import com.gapo.richtext.measurement.RichTextMeasurement
@@ -36,8 +36,6 @@ import io.noties.markwon.ext.tasklist.TaskListPlugin
  */
 class MainActivity : AppCompatActivity() {
 
-    private var richTextHelper: RichTextHelper? = null
-
     private val markwon by lazy(LazyThreadSafetyMode.NONE) {
         Markwon.builder(this)
             .usePlugin(object : AbstractMarkwonPlugin() {
@@ -62,14 +60,14 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        richTextHelper = RichTextHelper(binding.text)
-        richTextHelper?.setOnClickNotSpanListener {
-            Log.e("TAG", "onClickText")
+        RichTextHelper(binding.text).apply {
+            removeHighLight()
+            setOnClickNotSpanListener {
+                Log.e("TAG", "onClickText")
+            }
         }
-        
-        binding.text.highlightColor = Color.TRANSPARENT
+
         binding.text.movementMethod = RichTextLinkMovementMethod
-        
 
         val text =
             "Hán Trung Kiên\nTrần Hoàng Việt\nKhúc Ngọc Huy\nNguyễn Hải Triều\nĐỗ Khánh Toàn\n# GapoWork\n## Nền tảng giao tiếp dành cho doanh nghiệp\nCải thiện sự kết nối giữa nhân viên trong tổ chức thông qua các tính năng phục vụ giao tiếp và tương tác. Từ đó thúc đẩy việc hiện thực hóa mục tiêu chung và lan tỏa giá trị cốt lõi.\n\n## Trò chuyện, nhắn tin với mọi người\n0969696969\nkienht@gapo.vn\nhttps://www.gapowork.vn\n#GapoWork đảm bảo truyền tải thông điệp quan trọng cho đúng người, vào đúng thời điểm, theo đúng cách.Phát triển khả năng tương tác đa chiều thông qua công cụ Chat."
@@ -182,7 +180,6 @@ class MainActivity : AppCompatActivity() {
                 richText.spannable
             }
             binding.text.setText(spannable, TextView.BufferType.SPANNABLE)
-            
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.gapo.richtext.ext
 
+import android.graphics.Color
 import android.widget.TextView
 
 /**
@@ -9,6 +10,10 @@ import android.widget.TextView
 class RichTextHelper(
     private val textView: TextView
 ) {
+
+    fun removeHighLight() {
+        textView.highlightColor = Color.TRANSPARENT
+    }
 
     fun setOnClickNotSpanListener(onClick: () -> Unit) {
         textView.setOnClickListener {
