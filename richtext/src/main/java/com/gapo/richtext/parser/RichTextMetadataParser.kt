@@ -12,7 +12,7 @@ abstract class RichTextMetadataParser(
 ) {
 
     open fun parse(charSequence: CharSequence): List<RichTextMetadata> {
-        return cache.getOrPut(regex to charSequence) {
+        return cache.getOrPut(regex.hashCode() to charSequence.toString().hashCode()) {
             regex.findAll(charSequence).map { result ->
                 val value = result.value
                 val range = result.range
