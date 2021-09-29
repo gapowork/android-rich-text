@@ -2,6 +2,7 @@ package com.gapo.richtext.helper
 
 import android.graphics.Color
 import android.widget.TextView
+import com.gapo.richtext.RichTextSpannableFactory
 
 /**
  * @author vietth
@@ -10,6 +11,10 @@ import android.widget.TextView
 class RichTextHelper(
     private val textView: TextView
 ) {
+
+    fun setSpannableFactory() {
+        textView.setSpannableFactory(RichTextSpannableFactory())
+    }
 
     fun removeHighLight() {
         textView.highlightColor = Color.TRANSPARENT

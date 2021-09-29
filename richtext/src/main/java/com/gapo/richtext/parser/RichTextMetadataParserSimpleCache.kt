@@ -32,9 +32,4 @@ object RichTextMetadataParserSimpleCache : RichTextMetadataParserCache {
     override fun clear() {
         cached.clear()
     }
-
-    internal data class Key(
-        val regex: Regex,
-        val charSequence: CharSequence
-    )
 }
