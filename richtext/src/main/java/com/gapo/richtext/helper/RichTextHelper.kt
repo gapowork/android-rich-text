@@ -2,6 +2,7 @@ package com.gapo.richtext.helper
 
 import android.graphics.Color
 import android.widget.TextView
+import com.gapo.richtext.RichTextLinkMovementMethod
 import com.gapo.richtext.RichTextSpannableFactory
 
 /**
@@ -16,6 +17,10 @@ class RichTextHelper(
         textView.setSpannableFactory(RichTextSpannableFactory())
     }
 
+    fun setRichTextLinkMovementMethod() {
+        textView.movementMethod = RichTextLinkMovementMethod
+    }
+
     fun removeHighLight() {
         textView.highlightColor = Color.TRANSPARENT
     }
@@ -25,6 +30,16 @@ class RichTextHelper(
             if (textView.selectionStart == -1 && textView.selectionEnd == -1) {
                 onClick()
             }
+        }
+    }
+
+    fun setOnLongClickNotSpanListener(onLongClick: () -> Unit) {
+        textView.setOnLongClickListener {
+            if (textView.selectionStart == -1 && textView.selectionEnd == -1) {
+                onLongClick()
+                return@setOnLongClickListener true
+            }
+            return@setOnLongClickListener false
         }
     }
 }
