@@ -149,14 +149,14 @@ val richText = RichText.Builder()
                 .setMetadata(listOf(RichTextMetadata(seeMore, 4, seeMore.length)))
                 .create()
                 .span(seeMore),
-          line = 24,
-          measurementParams = RichTextMeasurement.Params.Builder().from(binding.text).build()
+            line = 24,
+            measurementParams = RichTextMeasurement.Params.Builder().from(binding.text).build()
         )
 )
 binding.text.text = if (richText.seeMoreSpannable != null) {
-  richText.seeMoreSpannable
+    richText.seeMoreSpannable
 } else {
-  richText.spannable
+    richText.spannable
 }
 ```
 
@@ -164,8 +164,9 @@ In SeeMore/SeeLess case, require textView have `layout_width` is `match_parent`
 
 ```xml
 
-<androidx.appcompat.widget.AppCompatTextView android:id="@+id/text"
-        android:layout_width="match_parent".../>
+<androidx.appcompat.widget.AppCompatTextView 
+    android:id="@+id/text"
+    android:layout_width="match_parent".../>
 ```
 
 - [Cached](/richtext/src/main/java/com/gapo/richtext/parser/RichTextMetadataParserSimpleCache.kt)
