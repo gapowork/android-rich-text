@@ -152,7 +152,7 @@ val richText = RichText.Builder()
             line = 24,
             measurementParams = RichTextMeasurement.Params.Builder().from(binding.text).build()
         )
-)
+    )
 binding.text.text = if (richText.seeMoreSpannable != null) {
     richText.seeMoreSpannable
 } else {
@@ -172,7 +172,6 @@ In SeeMore/SeeLess case, require textView have `layout_width` is `match_parent`
 - [Cached](/richtext/src/main/java/com/gapo/richtext/parser/RichTextMetadataParserSimpleCache.kt)
 
 ## License
-
 ~~~
 Copyright (c) 2021, Gapo Technology JSC
 All rights reserved.
