@@ -27,4 +27,14 @@ class RichTextHelper(
             }
         }
     }
+
+    fun setOnLongClickNotSpanListener(onLongClick: () -> Unit) {
+        textView.setOnLongClickListener {
+            if (textView.selectionStart == -1 && textView.selectionEnd == -1) {
+                onLongClick()
+                return@setOnLongClickListener true
+            }
+            return@setOnLongClickListener false
+        }
+    }
 }
