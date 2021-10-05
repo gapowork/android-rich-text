@@ -40,7 +40,6 @@ class ReadMoreTextView @JvmOverloads constructor(
     fun setText(
         richText: RichText?,
         isFullTextShown: Boolean,
-        onClickTextContent: () -> Unit
     ) {
         this.isFullTextShown = isFullTextShown
         this.richText = richText
@@ -54,11 +53,19 @@ class ReadMoreTextView @JvmOverloads constructor(
             SpannableString("")
         }
         setText(text, BufferType.SPANNABLE)
+    }
+
+    fun setOnClickNotSpanListener(onClick: () -> Unit) {
         richTextHelper.setOnClickNotSpanListener {
-            onClickTextContent()
+            onClick()
         }
     }
 
+    fun setOnLongClickNotSpanListener(onLongClick: () -> Unit) {
+        richTextHelper.setOnLongClickNotSpanListener {
+            onLongClick()
+        }
+    }
 
     fun toggle(withAnim: Boolean = false): Boolean? {
         val richText = richText ?: return null

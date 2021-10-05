@@ -167,13 +167,18 @@ class RichTextAdapter(
                     )
                 }
 
-                textView.setText(
-                    richText = richText,
-                    isFullTextShown = false,
-                    onClickTextContent = {
-                        textView.toggle()
+                textView.apply {
+                    setText(
+                        richText = richText,
+                        isFullTextShown = false,
+                    )
+                    setOnClickNotSpanListener {
+                        toggle()
                     }
-                )
+                    setOnLongClickNotSpanListener {
+                        Log.e("TAG", "onLongClick")
+                    }
+                }
             }
         }
     }
