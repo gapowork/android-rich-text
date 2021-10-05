@@ -2,6 +2,7 @@ package com.gapo.richtext.helper
 
 import android.graphics.Color
 import android.widget.TextView
+import com.gapo.richtext.RichTextLinkMovementMethod
 import com.gapo.richtext.RichTextSpannableFactory
 
 /**
@@ -14,6 +15,10 @@ class RichTextHelper(
 
     fun setSpannableFactory() {
         textView.setSpannableFactory(RichTextSpannableFactory())
+    }
+
+    fun setRichTextLinkMovementMethod() {
+        textView.movementMethod = RichTextLinkMovementMethod
     }
 
     fun removeHighLight() {
