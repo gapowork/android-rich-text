@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.transition.TransitionManager
 import com.gapo.richtext.RichText
-import com.gapo.richtext.RichTextLinkMovementMethod
 import com.gapo.richtext.helper.RichTextHelper
 
 /**
@@ -27,8 +26,11 @@ class ReadMoreTextView @JvmOverloads constructor(
 
     init {
         setText(SpannableString(""), BufferType.SPANNABLE)
-        movementMethod = RichTextLinkMovementMethod
-        richTextHelper.removeHighLight()
+        richTextHelper.apply {
+            setSpannableFactory()
+            removeHighLight()
+            setRichTextLinkMovementMethod()
+        }
     }
 
     override fun onDetachedFromWindow() {
