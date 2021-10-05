@@ -160,8 +160,16 @@ binding.text.text = if (richText.seeMoreSpannable != null) {
 }
 ```
 
-- [Cached](/richtext/src/main/java/com/gapo/richtext/parse/RichTextMetadataParserSimpleCache.kt)
+In SeeMore/SeeLess case, require textView have `layout_width` is `match_parent`
 
+```xml
+
+<androidx.appcompat.widget.AppCompatTextView 
+    android:id="@+id/text"
+    android:layout_width="match_parent".../>
+```
+
+- [Cached](/richtext/src/main/java/com/gapo/richtext/parser/RichTextMetadataParserSimpleCache.kt)
 
 ## License
 ~~~
