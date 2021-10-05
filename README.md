@@ -10,7 +10,7 @@ SeeMore/SeeLess by limited line or length, and ability to handle clicks and long
 Gradle
 
 ```gradle
-implementation 'vn.gapowork.richtext:richtext:1.0.0-alpha01'
+implementation 'vn.gapowork.richtext:richtext:1.0.0-alpha02'
 ```
 
 ## Usage
@@ -20,6 +20,7 @@ implementation 'vn.gapowork.richtext:richtext:1.0.0-alpha01'
 ```kotlin
 
 private val richTextHelper = RichTextHelper(binding.textView)
+richTextHelper.setRichTextLinkMovementMethod()
 richTextHelper.removeHighLight()
 richTextHelper.setOnClickNotSpanListener { }
 
