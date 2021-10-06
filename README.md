@@ -2,6 +2,7 @@
 
 **RichText** supports Hashtag, Mention, Url, Phone Number, Email, Markdown, Custom Span,
 SeeMore/SeeLess by limited line or length, and ability to handle clicks and long clicks on spanned content.
+Ability prepare data on background thread before it was drawn on main thread.
 
 <img src="/rich-text-screenshot.png" width="288" />
 
@@ -160,7 +161,7 @@ binding.text.text = if (richText.seeMoreSpannable != null) {
 }
 ```
 
-In SeeMore/SeeLess case, require textView have `layout_width` is `match_parent`
+SeeMore/SeeLess is limited by line count, TextView's layout_width must be `match_parent`.
 
 ```xml
 
