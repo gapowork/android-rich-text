@@ -11,7 +11,7 @@ Ability prepare data on background thread before it was drawn on main thread.
 Gradle
 
 ```gradle
-implementation 'vn.gapowork.android:richtext:1.0.0-alpha02'
+implementation 'vn.gapowork.android:rich-text:1.0.0-alpha02'
 ```
 
 ## Usage
