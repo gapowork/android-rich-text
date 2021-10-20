@@ -9,6 +9,11 @@ import com.gapo.richtext.parser.RichTextMetadataParserSimpleCache
  * @since 26/09/2021
  */
 class RichTextHashtagMetadataParser(
-    regex: Regex = Regex("(#[a-zA-Z\\d][\\w-]*)"),
+    regex: Regex = Regex(HASHTAG_PATTERN),
     cache: RichTextMetadataParserCache = RichTextMetadataParserSimpleCache
-) : RichTextMetadataParser(regex, cache)
+) : RichTextMetadataParser(regex, cache) {
+
+    companion object {
+        const val HASHTAG_PATTERN = "(#[a-zA-Z\\d][\\w-]*)"
+    }
+}
