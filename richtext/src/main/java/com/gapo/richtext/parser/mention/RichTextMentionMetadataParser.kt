@@ -9,6 +9,11 @@ import com.gapo.richtext.parser.RichTextMetadataParserSimpleCache
  * @since 26/09/2021
  */
 class RichTextMentionMetadataParser(
-    regex: Regex = Regex("(@[a-zA-Z\\d][\\w-]*)"),
+    regex: Regex = Regex(MENTION_PATTERN),
     cache: RichTextMetadataParserCache = RichTextMetadataParserSimpleCache
-) : RichTextMetadataParser(regex, cache)
+) : RichTextMetadataParser(regex, cache) {
+
+    companion object {
+        const val MENTION_PATTERN = "(@[a-zA-Z\\d][\\w-]*)"
+    }
+}

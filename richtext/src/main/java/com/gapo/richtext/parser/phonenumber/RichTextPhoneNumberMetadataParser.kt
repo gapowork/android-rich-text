@@ -9,6 +9,11 @@ import com.gapo.richtext.parser.RichTextMetadataParserSimpleCache
  * @since 26/09/2021
  */
 class RichTextPhoneNumberMetadataParser(
-    regex: Regex = Regex("((\\+84|0)+[35789]+([0-9]{8})\\b)"),
+    regex: Regex = Regex(PHONE_NUMBER_PATTERN),
     cache: RichTextMetadataParserCache = RichTextMetadataParserSimpleCache
-) : RichTextMetadataParser(regex, cache)
+) : RichTextMetadataParser(regex, cache) {
+
+    companion object {
+        const val PHONE_NUMBER_PATTERN = "((\\+84|0)+[35789]+([0-9]{8})\\b)"
+    }
+}
